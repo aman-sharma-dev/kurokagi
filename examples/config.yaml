@@ -1,0 +1,33 @@
+schema_version: "1"
+target:
+  base_url: http://127.0.0.1:8080
+  allowed_origins: [http://127.0.0.1:8080]
+  allowed_paths: [/api]
+openapi:
+  path: ./openapi.json
+identities:
+  - id: alice
+    name: Alice
+    role: operator
+    headers:
+      Authorization: "${ALICE_TOKEN}"
+  - id: bob
+    name: Bob
+    role: operator
+    headers:
+      Authorization: "${BOB_TOKEN}"
+resources:
+  - name: documents
+    collection: /api/docs
+    detail: /api/docs/{id}
+    id_field: id
+    verify_field: id
+    ownership: collection_visibility
+limits:
+  timeout: 8s
+  max_requests: 100
+  concurrency: 4
+  requests_per_second: 5
+  max_response_bytes: 1048576
+  max_objects: 100
+  redirect_policy: none
