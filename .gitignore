@@ -1,0 +1,44 @@
+# Kurokagi binaries
+/kuro
+/kuro.exe
+*.exe
+
+# Go build/test artifacts
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Workspace-local Go cache
+/.cache/
+/.gocache/
+
+# Go workspace
+go.work
+go.work.sum
+
+# IDEs / editors
+.vscode/
+.codex*
+.idea/
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.log
+
+# Local reports / scanner output
+/reports/
+/output/

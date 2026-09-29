@@ -4,7 +4,7 @@ target:
   allowed_origins: [http://127.0.0.1:8080]
   allowed_paths: [/api]
 openapi:
-  path: ./openapi.json
+  path: ./examples/openapi.json
 identities:
   - id: alice
     name: Alice
@@ -21,8 +21,14 @@ resources:
     collection: /api/docs
     detail: /api/docs/{id}
     id_field: id
-    verify_field: id
+    # Choose a stable field whose value is unique in the observed collections.
+    # Repeated/common values (such as a shared type) make the probe inconclusive.
+    verify_field: title
     ownership: collection_visibility
+expectations:
+  - identity: bob
+    resource: documents
+    access: DENIED
 limits:
   timeout: 8s
   max_requests: 100

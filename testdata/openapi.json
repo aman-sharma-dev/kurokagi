@@ -1,1 +1,10 @@
-{"openapi":"3.0.3","info":{"title":"Fixture API","version":"1"},"paths":{"/api/docs":{"get":{"responses":{"200":{"description":"ok"}}}},"/api/docs/{id}":{"get":{"responses":{"200":{"description":"ok"}}}}}}
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Fixture API", "version": "1" },
+  "paths": {
+    "/api/docs": { "get": { "responses": { "200": { "description": "ok" } } } },
+    "/api/docs/{id}": {
+      "get": { "responses": { "200": { "description": "ok" } } }
+    }
+  }
+}
