@@ -1,44 +1,126 @@
-# Kurokagi binaries
+# =============================================================================
+# Kurokagi - Git Ignore
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Go binaries / build artifacts
+# -----------------------------------------------------------------------------
 /kuro
 /kuro.exe
 *.exe
+*.dll
+*.so
+*.dylib
 
-# Go build/test artifacts
 *.test
 *.out
+
+# Coverage
 coverage.out
 coverage.html
+coverage*.out
+coverage*.html
 
-# Workspace-local Go cache
+# Profiling / tracing
+*.prof
+*.pprof
+*.trace
+
+# -----------------------------------------------------------------------------
+# Go caches / workspace
+# -----------------------------------------------------------------------------
 /.cache/
 /.gocache/
+/.gomodcache/
 
-# Go workspace
 go.work
 go.work.sum
 
-# IDEs / editors
-.vscode/
-.codex*
-.idea/
-*.swp
-*.swo
+# -----------------------------------------------------------------------------
+# Generated fuzzing artifacts
+#
+# Go fuzzing may write discovered inputs under testdata/fuzz/<FuzzName>/.
+# Keep intentionally committed seed/regression corpus files explicitly if needed.
+# -----------------------------------------------------------------------------
+**/testdata/fuzz/*/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*
+!internal/scope/testdata/fuzz/FuzzMatchRejectsUnsafeURLShapes/d8e42d324ba3863b
 
-# OS junk
-.DS_Store
-Thumbs.db
+# Native fuzz/test artifacts
+crashers/
+artifacts/
 
-# Environment / secrets
+# -----------------------------------------------------------------------------
+# Local scanner output / generated reports
+# -----------------------------------------------------------------------------
+/reports/
+/output/
+/results/
+
+*.sarif
+*.junit.xml
+
+# -----------------------------------------------------------------------------
+# Temporary files
+# -----------------------------------------------------------------------------
+/tmp/
+/temp/
+*.tmp
+*.temp
+*.log
+
+# Backup files
+*.bak
+*.backup
+*~
+*.orig
+
+# -----------------------------------------------------------------------------
+# Environment / local configuration / secrets
+# -----------------------------------------------------------------------------
 .env
 .env.*
 !.env.example
 
-# Temporary files
-tmp/
-temp/
-*.tmp
-*.log
+*.pem
+*.key
+*.p12
+*.pfx
 
-# Local reports / scanner output
-/reports/
-/output/
+# Local credentials / secret files
+credentials.json
+secrets.json
+
+# -----------------------------------------------------------------------------
+# IDEs / editors
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+.codex*
+*.swp
+*.swo
+
+# VS Code / tooling history
+.history/
+
+# -----------------------------------------------------------------------------
+# OS metadata
+# -----------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# -----------------------------------------------------------------------------
+# Windows / Unix miscellaneous
+# -----------------------------------------------------------------------------
+ehthumbs.db
+ehthumbs_vista.db
+$RECYCLE.BIN/
+
+# -----------------------------------------------------------------------------
+# Local development artifacts
+# -----------------------------------------------------------------------------
+.local/
+.localdata/
+scratch/

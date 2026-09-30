@@ -6,10 +6,40 @@ import (
 	"strings"
 )
 
+// Match reports whether raw is within one of the configured origins and path prefixes.
 func Match(raw string, origins, paths []string) bool {
+	return match(raw, origins, paths, nil)
+}
+
+// MatchWithQuery validates an in-scope URL while allowing only explicit query
+// parameter names. The ordinary Match API remains query-free by default.
+// MatchWithQuery applies scope checks and an optional exact query-key allowlist.
+func MatchWithQuery(raw string, origins, paths, allowedQueryKeys []string) bool {
+	return match(raw, origins, paths, allowedQueryKeys)
+}
+
+func match(raw string, origins, paths, allowedQueryKeys []string) bool {
 	u, e := url.Parse(raw)
-	if e != nil || u.User != nil || u.Host == "" || u.RawQuery != "" || u.ForceQuery || u.Fragment != "" {
+	if e != nil || u.User != nil || u.Host == "" || u.Fragment != "" {
 		return false
+	}
+	if u.RawQuery != "" || u.ForceQuery {
+		if len(allowedQueryKeys) == 0 {
+			return false
+		}
+		allowed := make(map[string]bool, len(allowedQueryKeys))
+		for _, key := range allowedQueryKeys {
+			allowed[key] = true
+		}
+		query, err := url.ParseQuery(u.RawQuery)
+		if err != nil || len(query) == 0 || (u.ForceQuery && u.RawQuery == "") {
+			return false
+		}
+		for key, values := range query {
+			if !allowed[key] || len(values) != 1 {
+				return false
+			}
+		}
 	}
 	if (u.Scheme != "http" && u.Scheme != "https") || u.Opaque != "" {
 		return false
@@ -72,6 +102,7 @@ func dangerousEscape(escaped string) bool {
 }
 
 // SameOrigin compares HTTP origins using effective default ports.
+// SameOrigin reports whether two absolute URLs have the same normalized origin.
 func SameOrigin(a, b string) bool {
 	x, errX := url.Parse(a)
 	y, errY := url.Parse(b)

@@ -1,0 +1,2 @@
+go test fuzz v1
+string("http://eXAmple.test/api/0000000000000")

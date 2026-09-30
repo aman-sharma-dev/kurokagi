@@ -1,0 +1,30 @@
+name: Feature request
+description: Propose a focused capability or improvement.
+title: "feature: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What authorization testing problem are you trying to solve?
+    validations:
+      required: true
+  - type: textarea
+    id: capability
+    attributes:
+      label: Proposed capability
+      description: Describe the behavior you would like Kurokagi to support.
+    validations:
+      required: true
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Authorization or security use case
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false

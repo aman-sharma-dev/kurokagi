@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a reproducible problem in Kurokagi.
+title: "bug: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, cookies, authorization headers, API keys, private request bodies, customer data, or other secrets. For vulnerabilities in Kurokagi, follow the repository's SECURITY.md and do not file an exploitable report publicly.
+  - type: input
+    id: version
+    attributes:
+      label: Kurokagi version or commit
+      placeholder: "kuro --version or commit SHA"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and version
+    validations:
+      required: true
+  - type: input
+    id: go
+    attributes:
+      label: Go version
+      placeholder: "go version"
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command and mode
+      description: Remove any secrets or private target details.
+      placeholder: "kuro scan ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Prefer a local controlled fixture and sanitized config.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant sanitized output
+      description: Remove credentials, cookies, authorization headers, API keys, request bodies, resource data, and other secrets.
+    validations:
+      required: false

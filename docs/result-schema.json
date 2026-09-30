@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kurokagi.invalid/schemas/result-v2.json",
+  "title": "Kurokagi Scan Result v2",
+  "type": "object",
+  "required": ["schema_version", "tool", "run_id", "target", "started_at", "finished_at", "status", "completion_state", "capabilities_exercised", "coverage", "findings", "evidence", "errors", "warnings"],
+  "properties": {
+    "schema_version": {"const": "2"},
+    "tool": {"type": "object", "required": ["name", "version"], "properties": {"name": {"const": "Kurokagi"}, "version": {"type": "string"}}, "additionalProperties": false},
+    "run_id": {"type": "string"},
+    "target": {"type": "object", "required": ["origin"], "properties": {"origin": {"type": "string", "format": "uri"}}, "additionalProperties": false},
+    "started_at": {"type": "string", "format": "date-time"},
+    "finished_at": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["completed", "findings", "cancelled"]},
+    "completion_state": {"enum": ["complete", "partial", "cancelled"]},
+    "capabilities_exercised": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "coverage": {"type": "array", "items": {"type": "object"}},
+    "findings": {"type": "array", "items": {"type": "object"}},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "errors": {"$ref": "#/$defs/messages"},
+    "warnings": {"$ref": "#/$defs/messages"}
+  },
+  "$defs": {"messages": {"type": "array", "items": {"type": "object", "required": ["code", "message"], "properties": {"code": {"enum": ["CONFIG_INVALID", "OPENAPI_INVALID", "TARGET_UNREACHABLE", "AUTH_FAILED", "SCOPE_REJECTED", "REQUEST_BUDGET_EXHAUSTED", "TIMEOUT", "RESPONSE_TOO_LARGE", "UNSUPPORTED_OPERATION", "CANCELLED", "INTERNAL_ERROR"]}, "message": {"type": "string"}}, "additionalProperties": false}}},
+  "additionalProperties": false
+}
