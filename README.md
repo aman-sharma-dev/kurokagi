@@ -46,6 +46,8 @@ go build ./cmd/kuro
 
 This writes `kuro.exe` on Windows and `kuro` on Unix-like systems. The repository currently documents source builds; it does not provide a package-manager installation.
 
+Official prebuilt binaries will be attached to [GitHub Releases](https://github.com/aman-sharma-dev/kurokagi/releases) after the first tagged release. No binary release has been published yet. Until then, build from source using the command above.
+
 ## Quick start
 
 The included example targets `127.0.0.1` and uses environment variables for credentials. First validate it with temporary local values (this command does not contact the API):
